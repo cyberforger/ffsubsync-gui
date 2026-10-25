@@ -76,13 +76,12 @@ components:
     typography: "{typography.label}"
     rounded: "{rounded.square}"
     padding: "4px 0"
-  input-subtitle:
-    backgroundColor: "rgba(248, 245, 236, 0.88)"
-    textColor: "{colors.ink}"
-    typography: "{typography.label}"
+  file-order-control:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink-soft}"
     rounded: "{rounded.square}"
-    padding: "5px 7px"
-    height: "32px"
+    height: "20px"
+    width: "23px"
   input-command:
     backgroundColor: "{colors.paper-light}"
     textColor: "{colors.ink}"
@@ -173,7 +172,7 @@ The palette pairs warm inlay stock with deep blue-black text and a single ballpo
 
 The desktop surface is a full-height two-part frame: a narrow vertical spine beside a flexible inlay. The inlay keeps its own scrolling work area, with the run summary and action held at the lower edge on wide layouts. The spine contracts as space narrows; its identity stays visible while the main surface becomes vertically scrollable.
 
-At wide widths, video and subtitle lanes sit side by side. Pair rows place the two file columns around a fixed center rail, followed by a compact state column; the rail keeps the numbered one-to-one relationship visible. Under the compact breakpoint, the source lanes stack and each pair becomes a vertical sequence with its track number and connecting line at the left. Very narrow layouts tighten the spine, masthead, and readiness summary again. The center rail's orientation changes, but its job does not.
+At wide widths, video and subtitle lanes sit side by side. Pair rows place the two file columns around a fixed center rail, followed by a compact state column; the rail keeps the numbered one-to-one relationship visible. Each file column has compact up and down controls so users can adjust the two ordered lists independently. Under the compact breakpoint, the source lanes stack and each pair becomes a vertical sequence with its track number and connecting line at the left. Very narrow layouts tighten the spine, masthead, and readiness summary again. The center rail's orientation changes, but its job does not.
 
 Use thin continuous or dashed rules to group work instead of adding card gutters. Keep long paths and filenames on one line with ellipsis, retain a readable measure for introductory copy, and let the lower execution details expand only when needed.
 
@@ -204,7 +203,7 @@ The form language is square and printed: hard corners, one-pixel borders, underl
 - **Focus:** Keyboard focus uses a clearly offset blue outline.
 
 ### Inputs / Fields
-- **Subtitle selector:** A full-width, square native select on a light paper inset; hovering shifts its border to blue. Its disabled state remains visibly muted.
+- **Order controls:** Small square up and down buttons sit beside each video and subtitle. Disable the control at the end of its list and during processing; use a clear keyboard focus ring.
 - **Command field:** A square text field with a pencil-rule border and bright-paper fill. Keep its focus ring consistent with other controls.
 
 ### Drop Zones
@@ -213,7 +212,7 @@ The form language is square and printed: hard corners, one-pixel borders, underl
 - **Responsive behavior:** The two lanes sit in parallel on wide screens and stack into separate rows when space is constrained.
 
 ### Pair Rows
-- **Structure:** One video and one subtitle flank a numbered center track. A thin connection line lengthens and turns blue for a unique match; manual assignment preserves the same mark, and failure turns it red.
+- **Structure:** One video and one subtitle flank a numbered center track. Matching is by each list's current position. A thin connection line lengthens and turns blue when both positions are filled; a missing subtitle leaves the connection quiet, and failure turns it red.
 - **File treatment:** Use a small blue file glyph, a strong filename, and a quieter directory line. Truncate paths rather than allowing one item to distort the row.
 - **State:** Keep the status word and any actionable retry or reveal control in the trailing state area. On narrow screens, turn the center connection vertical beside the stacked file choices.
 

@@ -31,7 +31,8 @@ The established product is an Electron desktop app. Users select or drop local v
 - Supports MP4, MKV, AVI, MOV, WMV, FLV, and WebM videos.
 - Supports SRT, ASS, SSA, SUB, and VTT subtitles.
 - Uses the installed `ffs` CLI for synchronization; it does not implement the alignment engine itself.
-- Automatically pairs matching filenames and allows the user to correct ambiguous pairs before running.
+- Pairs videos and subtitles by their independent list order. Lists start in natural filename order and can be reordered with per-file controls.
+- Requires equal video and subtitle counts before running the batch.
 - Writes synchronized subtitles beside their videos using the exact video basename and the selected subtitle extension so media players can auto-load them.
 - When that exact output path already contains a subtitle, retains the previous file as an `.original` backup before installing the synchronized output.
 - Media paths are processed locally by the desktop app and CLI.
@@ -46,6 +47,6 @@ The established product is an Electron desktop app. Users select or drop local v
 ## Product Principles
 
 - Keep original video and subtitle files safe.
-- Make every video/subtitle pairing visible and correctable before execution.
+- Make every order-based video/subtitle pairing visible and adjustable before execution.
 - Report progress and errors for each job in terms users can act on.
 - Keep media processing on the user's machine.

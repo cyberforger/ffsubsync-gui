@@ -10,8 +10,7 @@ const state = {
   videos: [],
   subtitles: [],
   assignments: new Map(),
-  manualPairs: new Map(),
-  manualLocks: new Set(),
+  customOrder: { video: false, subtitle: false },
   results: new Map(),
   activeId: null,
   runActive: false,
@@ -38,6 +37,8 @@ const iconShapes = {
   retry: [['path', { d: 'M20 7v5h-5M4.8 9a7.5 7.5 0 0 1 12.7-2L20 12M4 17v-5h5m10.2 3a7.5 7.5 0 0 1-12.7 2L4 12' }]],
   open: [['path', { d: 'M13 5h6v6m-.5-5.5L11 13m-3-6H5.5A1.5 1.5 0 0 0 4 8.5v10A1.5 1.5 0 0 0 5.5 20h10a1.5 1.5 0 0 0 1.5-1.5V16' }]],
   cassette: [['rect', { x: 3.5, y: 5, width: 17, height: 14, rx: 1.2 }], ['path', { d: 'M4 9h16m-11 7h6m-7 3 1.2-3m6.6 3L14 16' }], ['circle', { cx: 9, cy: 12.5, r: 2 }], ['circle', { cx: 15, cy: 12.5, r: 2 }]],
+  up: [['path', { d: 'm5 14 7-7 7 7M12 7v12' }]],
+  down: [['path', { d: 'm5 10 7 7 7-7M12 17V5' }]],
 }
 
 function makeIcon(name, className = '') {
@@ -74,54 +75,18 @@ function button(label, { className = 'secondary-button', icon = null, action = n
   return node
 }
 
-function normalizeStem(file) {
-  const stem = file.name.slice(0, -file.extension.length)
-  return stem.normalize('NFKC').toLocaleLowerCase().replace(/[\s._-]+/g, '')
-}
-
 function pathIdentity(filePath) {
   return filePath.toLocaleLowerCase()
 }
 
+function compareFileNames(left, right) {
+  return left.name.localeCompare(right.name, 'zh-CN', { numeric: true, sensitivity: 'base' })
+}
+
 function recomputeAssignments() {
-  const videoMap = new Map(state.videos.map((video) => [pathIdentity(video.path), video]))
-  const subtitleMap = new Map(state.subtitles.map((subtitle) => [pathIdentity(subtitle.path), subtitle]))
-  const used = new Set()
   const next = new Map()
-
-  for (const [videoKey, subtitlePath] of state.manualPairs) {
-    if (!videoMap.has(videoKey)) continue
-    const subtitleKey = pathIdentity(subtitlePath)
-    if (!subtitleMap.has(subtitleKey) || used.has(subtitleKey)) continue
-    const video = videoMap.get(videoKey)
-    next.set(video.path, subtitleMap.get(subtitleKey).path)
-    used.add(subtitleKey)
-  }
-
-  const videoGroups = new Map()
-  const subtitleGroups = new Map()
-  for (const video of state.videos) {
-    const key = normalizeStem(video)
-    videoGroups.set(key, [...(videoGroups.get(key) || []), video])
-  }
-  for (const subtitle of state.subtitles) {
-    const key = normalizeStem(subtitle)
-    subtitleGroups.set(key, [...(subtitleGroups.get(key) || []), subtitle])
-  }
-
-  for (const video of state.videos) {
-    if (next.has(video.path) || state.manualLocks.has(pathIdentity(video.path))) continue
-    const key = normalizeStem(video)
-    const videos = videoGroups.get(key) || []
-    const subtitles = subtitleGroups.get(key) || []
-    if (videos.length !== 1 || subtitles.length !== 1) continue
-    const subtitle = subtitles[0]
-    const subtitleKey = pathIdentity(subtitle.path)
-    if (!used.has(subtitleKey)) {
-      next.set(video.path, subtitle.path)
-      used.add(subtitleKey)
-    }
-  }
+  const pairCount = Math.min(state.videos.length, state.subtitles.length)
+  for (let index = 0; index < pairCount; index += 1) next.set(state.videos[index].path, state.subtitles[index].path)
 
   state.assignments = next
 }
@@ -138,14 +103,14 @@ function addFiles(kind, response) {
   const collection = kind === 'video' ? state.videos : state.subtitles
   const existing = new Set(collection.map((file) => pathIdentity(file.path)))
   let added = 0
-  for (const file of response.accepted || []) {
+  const incoming = [...(response.accepted || [])].sort(compareFileNames)
+  for (const file of incoming) {
     if (existing.has(pathIdentity(file.path))) continue
     collection.push(file)
     existing.add(pathIdentity(file.path))
     added += 1
   }
-  if (kind === 'video') state.videos.sort((left, right) => left.name.localeCompare(right.name, 'zh-CN'))
-  else state.subtitles.sort((left, right) => left.name.localeCompare(right.name, 'zh-CN'))
+  if (!state.customOrder[kind]) collection.sort(compareFileNames)
   recomputeAssignments()
 
   const rejected = response.rejected || []
@@ -181,34 +146,28 @@ async function addDropped(kind, files) {
 
 function removeVideo(filePath) {
   state.videos = state.videos.filter((file) => pathIdentity(file.path) !== pathIdentity(filePath))
-  const key = pathIdentity(filePath)
-  state.manualPairs.delete(key)
-  state.manualLocks.delete(key)
-  state.results.delete(key)
+  if (!state.videos.length) state.customOrder.video = false
+  state.results.delete(pathIdentity(filePath))
   recomputeAssignments()
   render()
 }
 
 function removeSubtitle(filePath) {
-  const key = pathIdentity(filePath)
-  state.subtitles = state.subtitles.filter((file) => pathIdentity(file.path) !== key)
-  for (const [videoKey, subtitlePath] of state.manualPairs) {
-    if (pathIdentity(subtitlePath) === key) {
-      state.manualPairs.delete(videoKey)
-      state.manualLocks.delete(videoKey)
-      state.results.delete(videoKey)
-    }
-  }
+  state.subtitles = state.subtitles.filter((file) => pathIdentity(file.path) !== pathIdentity(filePath))
+  if (!state.subtitles.length) state.customOrder.subtitle = false
   recomputeAssignments()
   render()
 }
 
-function updatePair(videoPath, subtitlePath) {
-  const videoKey = pathIdentity(videoPath)
-  state.manualLocks.add(videoKey)
-  if (subtitlePath) state.manualPairs.set(videoKey, subtitlePath)
-  else state.manualPairs.delete(videoKey)
-  state.results.delete(videoKey)
+function moveFile(kind, filePath, delta) {
+  const collection = kind === 'video' ? state.videos : state.subtitles
+  const index = collection.findIndex((file) => pathIdentity(file.path) === pathIdentity(filePath))
+  const nextIndex = index + delta
+  if (index < 0 || nextIndex < 0 || nextIndex >= collection.length || state.runActive) return
+  const moved = collection[index]
+  collection[index] = collection[nextIndex]
+  collection[nextIndex] = moved
+  state.customOrder[kind] = true
   recomputeAssignments()
   render()
 }
@@ -231,37 +190,23 @@ function statusFor(video, subtitlePath) {
   if (result && pathIdentity(result.subtitlePath || state.assignments.get(video.path) || '') === pathIdentity(subtitlePath || '')) return result
   if (state.activeId && state.activeId === result?.id) return result
   if (!subtitlePath) return { status: 'waiting' }
-  return { status: state.manualLocks.has(videoKey) ? 'manual' : 'matched' }
+  return { status: 'matched' }
 }
 
-function subtitleOptions(video, chosenPath) {
-  const select = document.createElement('select')
-  select.className = 'subtitle-select'
-  select.dataset.videoPath = video.path
-  select.setAttribute('aria-label', `为视频“${video.name}”选择唯一字幕`)
-  const placeholder = document.createElement('option')
-  placeholder.value = ''
-  placeholder.textContent = state.subtitles.length ? '选择对应字幕' : '先添加字幕文件'
-  select.append(placeholder)
-
-  for (const subtitle of state.subtitles) {
-    const option = document.createElement('option')
-    option.value = subtitle.path
-    option.textContent = `${subtitle.name}  ·  ${directoryLabel(subtitle)}`
-    const assignedToOther = [...state.assignments].some(([assignedVideo, assignedSubtitle]) =>
-      pathIdentity(assignedSubtitle) === pathIdentity(subtitle.path) && pathIdentity(assignedVideo) !== pathIdentity(video.path))
-    option.disabled = assignedToOther
-    select.append(option)
-  }
-  select.value = chosenPath || ''
-  select.disabled = state.runActive || state.subtitles.length === 0
-  select.addEventListener('change', () => updatePair(video.path, select.value))
-  return select
+function makeOrderControls(kind, file, index, length) {
+  const controls = element('div', 'file-order-controls')
+  const label = kind === 'video' ? '视频' : '字幕'
+  const up = button('', { className: 'order-button', icon: 'up', ariaLabel: `将${label}“${file.name}”上移`, disabled: state.runActive || index === 0, action: () => moveFile(kind, file.path, -1) })
+  const down = button('', { className: 'order-button', icon: 'down', ariaLabel: `将${label}“${file.name}”下移`, disabled: state.runActive || index === length - 1, action: () => moveFile(kind, file.path, 1) })
+  up.dataset.focusPath = `${kind}:${pathIdentity(file.path)}:-1`
+  down.dataset.focusPath = `${kind}:${pathIdentity(file.path)}:1`
+  controls.append(up, down)
+  return controls
 }
 
 function statusLabel(status) {
   const labels = {
-    matched: '自动配对', manual: '手动配对', waiting: '待选择', running: '同步中',
+    matched: '按序配对', waiting: '待配对', running: '同步中',
     success: '已完成', failed: '需要处理', cancelled: '已取消',
   }
   return labels[status] || '待处理'
@@ -315,15 +260,22 @@ function makePairRow(video, index) {
   const connectingLine = element('span', 'connection-line')
   connectingLine.setAttribute('aria-hidden', 'true')
   pairMark.append(connectingLine)
-  pairMark.append(element('span', 'pair-word', subtitle ? (state.manualLocks.has(pathIdentity(video.path)) ? '已选择' : '同名') : '待配'))
+  pairMark.append(element('span', 'pair-word', subtitle ? '同序' : '缺字幕'))
 
   const subtitleCell = element('div', 'file-cell subtitle-cell')
   subtitleCell.append(makeIcon('subtitle', 'file-icon subtitle-file-icon'))
-  const selectWrap = element('div', 'subtitle-choice')
-  selectWrap.append(subtitleOptions(video, assignedPath))
-  if (subtitle) selectWrap.append(element('span', 'file-directory', directoryLabel(subtitle)))
-  else selectWrap.append(element('span', 'choice-hint', state.subtitles.length ? '选定后即可运行此任务' : '从字幕轨添加文件'))
-  subtitleCell.append(selectWrap)
+  const subtitleCopy = element('div', 'file-copy')
+  if (subtitle) {
+    subtitleCopy.append(element('strong', 'file-name', subtitle.name), element('span', 'file-directory', directoryLabel(subtitle)))
+    subtitleCell.append(
+      subtitleCopy,
+      makeOrderControls('subtitle', subtitle, index, state.subtitles.length),
+      button('', { className: 'remove-file', icon: 'trash', ariaLabel: `移除字幕 ${subtitle.name}`, disabled: state.runActive, action: () => removeSubtitle(subtitle.path) }),
+    )
+  } else {
+    subtitleCopy.append(element('strong', 'file-name missing-subtitle', '此序号没有字幕'), element('span', 'file-directory', '添加字幕或调整两侧顺序'))
+    subtitleCell.append(subtitleCopy)
+  }
 
   const stateCell = element('div', 'row-state-cell')
   const status = element('span', `row-status status-${result.status}`)
@@ -331,7 +283,7 @@ function makePairRow(video, index) {
   status.append(element('span', '', statusLabel(result.status)))
   stateCell.append(status)
   if (result.status === 'failed') {
-    const retry = button('重试', { className: 'row-action', icon: 'retry', disabled: state.runActive })
+    const retry = button('重试', { className: 'row-action', icon: 'retry', disabled: state.runActive || state.videos.length !== state.subtitles.length })
     retry.addEventListener('click', () => runBatch([video]))
     stateCell.append(retry)
   } else if (result.status === 'success' && result.outputPath) {
@@ -346,7 +298,7 @@ function makePairRow(video, index) {
 
   const remove = button('', { className: 'remove-file', icon: 'trash', ariaLabel: `移除视频 ${video.name}`, disabled: state.runActive, action: () => removeVideo(video.path) })
   const videoWrap = element('div', 'video-choice')
-  videoWrap.append(videoCell, remove)
+  videoWrap.append(videoCell, makeOrderControls('video', video, index, state.videos.length), remove)
   row.append(videoWrap, pairMark, subtitleCell, stateCell)
 
   const naming = element('div', 'row-output-rule')
@@ -360,36 +312,33 @@ function makeEmptyState() {
   const empty = element('section', 'empty-inlay')
   empty.append(makeIcon('cassette', 'empty-cassette'))
   const copy = element('div', 'empty-copy')
-  const title = state.subtitles.length ? '先放入一条视频，再为它选择字幕' : '把视频与字幕放进各自的轨道'
+  const title = '把视频与字幕放进各自的轨道'
   copy.append(element('h2', '', title))
-  copy.append(element('p', '', '文件留在本机。匹配关系确认后，工作台才会开始同步。'))
+  copy.append(element('p', '', '两侧按当前顺序一一配对；可分别调整顺序。'))
   empty.append(copy)
   return empty
 }
 
 function makeUnassignedSection() {
-  const assigned = new Set([...state.assignments.values()].map(pathIdentity))
-  const unassigned = state.subtitles.filter((subtitle) => !assigned.has(pathIdentity(subtitle.path)))
+  const unassigned = state.subtitles.slice(state.videos.length)
+  if (!unassigned.length) return null
   const details = element('details', 'unassigned-details')
   details.open = state.logOpen === 'subtitles'
   const summary = element('summary', 'details-summary')
-  summary.append(element('span', '', '未配字幕'), element('span', 'summary-count', `${unassigned.length} 条`))
+  summary.append(element('span', '', '超出视频数量的字幕'), element('span', 'summary-count', `${unassigned.length} 条`))
   details.append(summary)
   details.addEventListener('toggle', () => {
     if (details.open) state.logOpen = 'subtitles'
     else if (state.logOpen === 'subtitles') state.logOpen = false
   })
-  if (!unassigned.length) {
-    details.append(element('p', 'details-empty', state.subtitles.length ? '所有字幕都已分配。' : '添加的字幕会显示在这里。'))
-    return details
-  }
   const list = element('ul', 'unassigned-list')
   for (const subtitle of unassigned) {
+    const subtitleIndex = state.subtitles.indexOf(subtitle)
     const row = element('li', 'unassigned-item')
     row.append(makeIcon('subtitle', 'file-icon subtitle-file-icon'))
     const copy = element('div', 'file-copy')
-    copy.append(element('strong', 'file-name', subtitle.name), element('span', 'file-directory', directoryLabel(subtitle)))
-    row.append(copy, button('', { className: 'remove-file', icon: 'trash', ariaLabel: `移除字幕 ${subtitle.name}`, disabled: state.runActive, action: () => removeSubtitle(subtitle.path) }))
+    copy.append(element('strong', 'file-name', `${String(subtitleIndex + 1).padStart(2, '0')} · ${subtitle.name}`), element('span', 'file-directory', directoryLabel(subtitle)))
+    row.append(copy, makeOrderControls('subtitle', subtitle, subtitleIndex, state.subtitles.length), button('', { className: 'remove-file', icon: 'trash', ariaLabel: `移除字幕 ${subtitle.name}`, disabled: state.runActive, action: () => removeSubtitle(subtitle.path) }))
     list.append(row)
   }
   details.append(list)
@@ -434,7 +383,8 @@ function cliState() {
 
 function runReadiness() {
   const count = state.videos.reduce((ready, video) => ready + (state.assignments.has(video.path) ? 1 : 0), 0)
-  return { ready: count, total: state.videos.length, allReady: count > 0 && count === state.videos.length }
+  const countsMatch = state.videos.length === state.subtitles.length
+  return { ready: count, total: state.videos.length, countsMatch, allReady: count > 0 && countsMatch && count === state.videos.length }
 }
 
 function makeHeader() {
@@ -463,17 +413,20 @@ function makeIntro() {
   const intro = element('section', 'workbench-intro')
   const title = element('div', 'intro-copy')
   title.append(element('h1', '', '字幕对齐工作台'))
-  title.append(element('p', '', '让每段画面与正确的对白并排落在轨道上。确认配对，再交给 ffs 同步。'))
+  title.append(element('p', '', '视频和字幕按各自列表顺序一一配对，可用箭头调整顺序。'))
   intro.append(title)
 
   const readiness = runReadiness()
   const count = element('div', 'readiness')
-  const label = element('span', 'readiness-label', '已配对 · 可运行')
+  const label = element('span', 'readiness-label', readiness.countsMatch && readiness.total ? '数量一致 · 可运行' : readiness.total || state.subtitles.length ? '数量不一致' : '等待文件')
   const value = element('div', 'readiness-value')
   value.append(element('strong', 'ready-number', String(readiness.ready).padStart(2, '0')))
   value.append(element('span', 'ready-divider', '/'))
   value.append(element('span', 'ready-total', String(readiness.total).padStart(2, '0')))
-  count.append(label, value, element('span', 'readiness-note', readiness.total ? `尚有 ${readiness.total - readiness.ready} 项待确认` : '等待添加任务'))
+  const note = readiness.countsMatch
+    ? readiness.total ? '按顺序一一配对' : '等待添加任务'
+    : `视频 ${state.videos.length} · 字幕 ${state.subtitles.length}`
+  count.append(label, value, element('span', `readiness-note${readiness.countsMatch ? '' : ' readiness-mismatch'}`, note))
   intro.append(count)
   return intro
 }
@@ -481,7 +434,7 @@ function makeIntro() {
 function makeTrackHeader() {
   const header = element('div', 'pair-header')
   header.append(element('span', 'column-label', '视频'))
-  header.append(element('span', 'middle-label', '配对轨'))
+  header.append(element('span', 'middle-label', '序号'))
   header.append(element('span', 'column-label', '字幕'))
   header.append(element('span', 'state-label', '任务状态'))
   return header
@@ -500,11 +453,11 @@ function makeRunBar() {
   const progress = element('div', 'batch-progress')
   const completed = state.runFinished
   const total = state.runTotal
-  progress.append(element('strong', '', state.runActive ? `正在处理 ${completed + (state.activeId ? 1 : 0)} / ${total}` : total ? `本批完成 ${completed} / ${total}` : '逐项串行处理'))
-  progress.append(element('span', '', state.cancelRequested ? '正在安全停止当前任务…' : '每项结果都会保留在执行记录中'))
+  const readiness = runReadiness()
+  progress.append(element('strong', '', state.runActive ? `正在处理 ${completed + (state.activeId ? 1 : 0)} / ${total}` : total ? `本批完成 ${completed} / ${total}` : readiness.countsMatch ? '逐项串行处理' : '文件数量不一致'))
+  progress.append(element('span', '', state.cancelRequested ? '正在安全停止当前任务…' : readiness.countsMatch ? '每项结果都会保留在执行记录中' : `视频 ${state.videos.length} 条 · 字幕 ${state.subtitles.length} 条，数量一致后才能开始`))
   footer.append(progress)
 
-  const readiness = runReadiness()
   const runButton = state.runActive
     ? button('停止同步', { className: 'cancel-button', icon: 'close', action: async () => { state.cancelRequested = true; render(); await window.ffsync.cancelSync() } })
     : button('开始同步', {
@@ -521,7 +474,6 @@ function render() {
   recomputeAssignments()
   const activeElement = document.activeElement
   const focusPath = activeElement?.dataset?.focusPath || null
-  const activeSelectVideo = activeElement?.dataset?.videoPath || null
   const stage = element('div', 'stage')
   stage.append(makeHeader())
 
@@ -533,14 +485,13 @@ function render() {
 
   const trackSection = element('section', 'track-section')
   const trackTitle = element('div', 'track-title-line')
-  trackTitle.append(element('h2', '', '配对内页'), element('span', 'track-caption', '一条视频 · 一条字幕 · 唯一对应'))
+  trackTitle.append(element('h2', '', '配对内页'), element('span', 'track-caption', '按列表顺序配对 · 两侧可分别调整'))
   if (state.videos.length || state.subtitles.length) {
     trackTitle.append(button('清空列表', { className: 'text-button clear-button', disabled: state.runActive, action: () => {
       state.videos = []
       state.subtitles = []
+      state.customOrder = { video: false, subtitle: false }
       state.assignments.clear()
-      state.manualPairs.clear()
-      state.manualLocks.clear()
       state.results.clear()
       render()
     } }))
@@ -554,16 +505,22 @@ function render() {
   } else {
     trackSection.append(makeEmptyState())
   }
-  scroll.append(trackSection, makeUnassignedSection(), makeLogSection())
+  scroll.append(trackSection)
+  const overflow = makeUnassignedSection()
+  if (overflow) scroll.append(overflow)
+  scroll.append(makeLogSection())
   stage.append(scroll, makeRunBar())
   appRoot.replaceChildren(stage)
 
   if (focusPath) appRoot.querySelector(`[data-focus-path="${CSS.escape(focusPath)}"]`)?.focus()
-  if (activeSelectVideo) appRoot.querySelector(`[data-video-path="${CSS.escape(activeSelectVideo)}"] select`)?.focus()
 }
 
 async function runBatch(videos = state.videos) {
   if (state.runActive) return
+  if (state.videos.length !== state.subtitles.length) {
+    notify(`视频 ${state.videos.length} 条，字幕 ${state.subtitles.length} 条，数量一致后才能开始同步。`, 'error')
+    return
+  }
   const jobs = videos.map((video) => ({
     id: crypto.randomUUID(),
     videoPath: video.path,

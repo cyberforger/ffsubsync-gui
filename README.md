@@ -5,8 +5,8 @@ FFSubSync GUI is a local Windows desktop companion for pairing videos with exter
 ## What it does
 
 - Add multiple video and subtitle files with the native file picker or by dropping them onto their labeled tracks.
-- Pair unique matching filenames automatically. Review every row and choose a subtitle manually when names are unmatched or ambiguous.
-- Enforce one-to-one pairs before a batch can start.
+- Pair the first video with the first subtitle, then continue by list order. Both lists start in natural filename order and each file can be moved up or down independently.
+- Require equal video and subtitle counts before a batch can start; the workbench shows the count mismatch.
 - Run jobs sequentially and show the actual `ffs` output, per-file result, and recovery action.
 - Save the result beside the video with the video's exact basename and the selected subtitle extension. If that output already exists, retain it as `<video name>.original.<subtitle extension>` before replacing it.
 - Keep media files and processing on the local machine.
