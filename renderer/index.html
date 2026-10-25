@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self';" />
+    <meta name="theme-color" content="#F2EDDF" />
+    <title>FFSubSync · 字幕对齐工作台</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./renderer.js" defer></script>
+  </head>
+  <body>
+    <div class="app-frame">
+      <aside class="card-spine" aria-label="FFSubSync 批次内页">
+        <div class="spine-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" role="presentation"><path d="M7 8h26v24H7z"/><circle cx="15" cy="20" r="5"/><circle cx="25" cy="20" r="5"/><path d="M15 25h10m-18-9h4m18 0h4"/></svg>
+        </div>
+        <div class="spine-topline">SIDE A · SYNC RECORD</div>
+        <div class="spine-title">FFSubSync</div>
+        <div class="spine-rule" aria-hidden="true"></div>
+        <div class="spine-index">01</div>
+        <div class="spine-footer">本机处理<br />字幕校准</div>
+      </aside>
+      <main id="app" class="inlay" aria-live="polite"></main>
+    </div>
+
+    <dialog id="settings-dialog" class="settings-dialog" aria-labelledby="settings-title">
+      <form method="dialog" class="settings-form">
+        <div class="settings-heading">
+          <div>
+            <h2 id="settings-title">工作台设置</h2>
+            <p>检查本机同步工具，配置 ffs 命令。</p>
+          </div>
+          <button class="icon-button close-settings" type="button" aria-label="关闭设置"></button>
+        </div>
+        <label class="field-label" for="ffs-command">ffs 可执行命令</label>
+        <div class="command-row">
+          <input id="ffs-command" name="ffsCommand" type="text" spellcheck="false" autocomplete="off" placeholder="ffs" />
+          <button id="choose-ffs" class="secondary-button" type="button">选择 .exe</button>
+        </div>
+        <p class="field-note">默认读取 PATH 中的 <code>ffs</code>。若应用找不到它，请选择 ffs.exe；不要在路径中附带参数。</p>
+        <div class="environment-block">
+          <div class="environment-heading">
+            <h3>运行环境</h3>
+            <button id="check-environment" class="text-button" type="button">重新检查</button>
+          </div>
+          <div id="environment-results" class="environment-results" aria-live="polite"></div>
+        </div>
+        <p class="install-links"><a href="https://ffsubsync.readthedocs.io/en/latest/installation.html">FFSubSync 安装说明</a><span>·</span><a href="https://ffsubsync.readthedocs.io/en/latest/usage.html">命令行用法</a></p>
+        <div class="settings-actions">
+          <button id="save-settings" class="primary-button" type="button">保存设置</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
+

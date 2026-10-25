@@ -1,0 +1,38 @@
+{
+  "name": "ffsubsync-gui",
+  "version": "1.0.0",
+  "description": "A local Windows desktop companion for FFSubSync batch alignment.",
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win portable --x64",
+    "build:dir": "electron-builder --dir --win --x64"
+  },
+  "devDependencies": {
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0"
+  },
+  "dependencies": {
+    "@fontsource/kalam": "^5.3.0",
+    "@fontsource/zcool-xiaowei": "^5.3.0"
+  },
+  "build": {
+    "appId": "org.ffsubsync.gui",
+    "productName": "FFSubSync GUI",
+    "asar": true,
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "assets/**/*",
+      "package.json",
+      "README.md",
+      "THIRD-PARTY-NOTICES.md"
+    ],
+    "win": {
+      "target": ["portable"],
+      "artifactName": "FFSubSync-GUI-${version}-Windows-${arch}.${ext}"
+    }
+  }
+}

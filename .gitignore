@@ -1,0 +1,15 @@
+node_modules/
+dist/
+release/
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.impeccable/config.local.json
+.impeccable/mocks/
+.impeccable/review/
+.impeccable/questions/
+.impeccable/direction-options.json
+.impeccable/seed-*.txt
+.impeccable/build/
+.impeccable/preview/

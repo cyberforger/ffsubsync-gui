@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-25T09:02:04Z",
+  "title": "Design System: FFSubSync GUI",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Deep Ballpoint Navy",
+        "canonical": "#203448",
+        "tonalRamp": ["oklch(15% 0.044 249.4)", "oklch(26% 0.044 249.4)", "oklch(38% 0.044 249.4)", "oklch(50% 0.044 249.4)", "oklch(62% 0.044 249.4)", "oklch(74% 0.044 249.4)", "oklch(86% 0.044 249.4)", "oklch(95% 0.044 249.4)"]
+      },
+      "ink-blue": {
+        "role": "primary",
+        "displayName": "Ballpoint Blue",
+        "canonical": "#1e6594",
+        "tonalRamp": ["oklch(15% 0.102 242.6)", "oklch(26% 0.102 242.6)", "oklch(38% 0.102 242.6)", "oklch(50% 0.102 242.6)", "oklch(62% 0.102 242.6)", "oklch(74% 0.102 242.6)", "oklch(86% 0.102 242.6)", "oklch(95% 0.102 242.6)"]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Slate Ink",
+        "canonical": "#536a7b",
+        "tonalRamp": ["oklch(15% 0.038 240.5)", "oklch(26% 0.038 240.5)", "oklch(38% 0.038 240.5)", "oklch(50% 0.038 240.5)", "oklch(62% 0.038 240.5)", "oklch(74% 0.038 240.5)", "oklch(86% 0.038 240.5)", "oklch(95% 0.038 240.5)"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Inlay Ivory",
+        "canonical": "#f2eddf",
+        "tonalRamp": ["oklch(15% 0.019 90.5)", "oklch(26% 0.019 90.5)", "oklch(38% 0.019 90.5)", "oklch(50% 0.019 90.5)", "oklch(62% 0.019 90.5)", "oklch(74% 0.019 90.5)", "oklch(86% 0.019 90.5)", "oklch(95% 0.019 90.5)"]
+      },
+      "paper-light": {
+        "role": "neutral",
+        "displayName": "Bright Paper",
+        "canonical": "#f8f5ec",
+        "tonalRamp": ["oklch(15% 0.012 91.5)", "oklch(26% 0.012 91.5)", "oklch(38% 0.012 91.5)", "oklch(50% 0.012 91.5)", "oklch(62% 0.012 91.5)", "oklch(74% 0.012 91.5)", "oklch(86% 0.012 91.5)", "oklch(95% 0.012 91.5)"]
+      },
+      "paper-white": {
+        "role": "neutral",
+        "displayName": "Edge White",
+        "canonical": "#fffdf7",
+        "tonalRamp": ["oklch(15% 0.008 91.5)", "oklch(26% 0.008 91.5)", "oklch(38% 0.008 91.5)", "oklch(50% 0.008 91.5)", "oklch(62% 0.008 91.5)", "oklch(74% 0.008 91.5)", "oklch(86% 0.008 91.5)", "oklch(95% 0.008 91.5)"]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Desk Canvas",
+        "canonical": "#e8e4d9",
+        "tonalRamp": ["oklch(15% 0.015 90.2)", "oklch(26% 0.015 90.2)", "oklch(38% 0.015 90.2)", "oklch(50% 0.015 90.2)", "oklch(62% 0.015 90.2)", "oklch(74% 0.015 90.2)", "oklch(86% 0.015 90.2)", "oklch(95% 0.015 90.2)"]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Pencil Rule",
+        "canonical": "#c1c3bd",
+        "tonalRamp": ["oklch(15% 0.009 121.7)", "oklch(26% 0.009 121.7)", "oklch(38% 0.009 121.7)", "oklch(50% 0.009 121.7)", "oklch(62% 0.009 121.7)", "oklch(74% 0.009 121.7)", "oklch(86% 0.009 121.7)", "oklch(95% 0.009 121.7)"]
+      },
+      "rule-soft": {
+        "role": "neutral",
+        "displayName": "Faint Rule",
+        "canonical": "rgba(53, 75, 91, 0.15)",
+        "tonalRamp": ["oklch(15% 0.038 240.5 / 0.15)", "oklch(26% 0.038 240.5 / 0.15)", "oklch(38% 0.038 240.5 / 0.15)", "oklch(50% 0.038 240.5 / 0.15)", "oklch(62% 0.038 240.5 / 0.15)", "oklch(74% 0.038 240.5 / 0.15)", "oklch(86% 0.038 240.5 / 0.15)", "oklch(95% 0.038 240.5 / 0.15)"]
+      },
+      "signal": {
+        "role": "secondary",
+        "displayName": "Cinnabar Signal",
+        "canonical": "#c84c40",
+        "tonalRamp": ["oklch(15% 0.161 28.5)", "oklch(26% 0.161 28.5)", "oklch(38% 0.161 28.5)", "oklch(50% 0.161 28.5)", "oklch(62% 0.161 28.5)", "oklch(74% 0.161 28.5)", "oklch(86% 0.161 28.5)", "oklch(95% 0.161 28.5)"]
+      },
+      "success": {
+        "role": "tertiary",
+        "displayName": "Pressed Green",
+        "canonical": "#2f6d59",
+        "tonalRamp": ["oklch(15% 0.072 169.4)", "oklch(26% 0.072 169.4)", "oklch(38% 0.072 169.4)", "oklch(50% 0.072 169.4)", "oklch(62% 0.072 169.4)", "oklch(74% 0.072 169.4)", "oklch(86% 0.072 169.4)", "oklch(95% 0.072 169.4)"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Printed Display", "purpose": "The main workbench heading." },
+      "section": { "displayName": "Section Display", "purpose": "Section and short dialog headings." },
+      "body": { "displayName": "Work Sans", "purpose": "Explanatory copy and supporting details." },
+      "label": { "displayName": "Control Label", "purpose": "Compact labels, controls, counters, and status text." },
+      "handwritten": { "displayName": "Ballpoint Hand", "purpose": "Track numbers and short handwritten annotations." },
+      "action": { "displayName": "Printed Action", "purpose": "The primary run action." }
+    },
+    "shadows": [
+      { "name": "frame-dialog", "value": "var(--shadow)", "purpose": "Soft ambient lift for the app frame and settings dialog." },
+      { "name": "run-bar", "value": "0 -8px 20px rgba(36, 51, 62, .06)", "purpose": "A quiet upward edge above the persistent desktop action bar." },
+      { "name": "notice", "value": "0 8px 20px rgba(36, 51, 62, .16)", "purpose": "Separation for short-lived feedback notices." }
+    ],
+    "motion": [
+      { "name": "state-ease", "value": "180ms ease", "purpose": "Default control and state transitions." },
+      { "name": "press-ease", "value": "180ms cubic-bezier(.16, 1, .3, 1)", "purpose": "Small press and entrance movement." },
+      { "name": "pair-confirmation", "value": "280ms ease", "purpose": "The connection line settling into a confirmed pairing." },
+      { "name": "status-spin", "value": "900ms linear", "purpose": "The running-state indicator." },
+      { "name": "availability-pulse", "value": "1.4s ease-in-out infinite", "purpose": "A subtle pulse while the local tool check is in progress." },
+      { "name": "toast-enter", "value": "330ms cubic-bezier(.16, 1, .3, 1)", "purpose": "Short notice entrance." }
+    ],
+    "breakpoints": [
+      { "name": "wide-to-compact", "value": "1120px" },
+      { "name": "compact", "value": "820px" },
+      { "name": "phone", "value": "480px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Run Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Starts the ready batch from the lower action bar.",
+      "html": "<button class='ds-button-primary' type='button'><svg viewBox='0 0 24 24' aria-hidden='true'><path d='m8 5 11 7-11 7z' fill='currentColor' stroke='none'/></svg><span>开始同步</span></button>",
+      "css": ".ds-button-primary{display:inline-flex;min-width:146px;min-height:43px;align-items:center;justify-content:center;gap:9px;padding:10px 17px;border:1px solid var(--ink);border-radius:0;background:var(--ink-blue);color:#fffdf7;font-family:var(--display);font-size:15px;font-weight:400;cursor:pointer;transition:color 180ms ease,border-color 180ms ease,background-color 180ms ease,transform 180ms cubic-bezier(.16,1,.3,1)}.ds-button-primary svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.ds-button-primary:hover:not(:disabled){border-color:#132639;background:#174d73}.ds-button-primary:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}.ds-button-primary:active:not(:disabled){transform:translateY(1px)}.ds-button-primary:disabled{border-color:#a9b2b0;background:#c3c7bf;color:#47545a;cursor:not-allowed}"
+    },
+    {
+      "name": "Secondary File Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Opens a file picker from a source lane or settings row.",
+      "html": "<button class='ds-button-secondary' type='button'><svg viewBox='0 0 24 24' aria-hidden='true'><path d='M12 5v14M5 12h14'/></svg><span>添加视频</span></button>",
+      "css": ".ds-button-secondary{display:inline-flex;min-height:34px;align-items:center;justify-content:center;gap:7px;padding:7px 11px;border:1px solid var(--ink-blue);border-radius:0;background:transparent;color:var(--ink-blue);font-family:var(--ui);font-size:11px;white-space:nowrap;cursor:pointer;transition:color 180ms ease,border-color 180ms ease,background-color 180ms ease,transform 180ms cubic-bezier(.16,1,.3,1)}.ds-button-secondary svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.ds-button-secondary:hover:not(:disabled){background:var(--ink-blue);color:#fff}.ds-button-secondary:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}.ds-button-secondary:active:not(:disabled){transform:translateY(1px)}.ds-button-secondary:disabled{border-color:#b6bcb6;background:rgba(193,195,189,.18);color:#7d8a8e;cursor:not-allowed}"
+    },
+    {
+      "name": "Stop Sync Button",
+      "kind": "button",
+      "refersTo": "button-cancel",
+      "description": "Replaces the primary run action during an active batch; its outline stays blue while the stop action gets a faint blue wash on hover.",
+      "html": "<button class='ds-button-cancel' type='button'><svg viewBox='0 0 24 24' aria-hidden='true'><path d='m6 6 12 12M18 6 6 18'/></svg><span>停止同步</span></button>",
+      "css": ".ds-button-cancel{display:inline-flex;min-width:146px;min-height:43px;align-items:center;justify-content:center;gap:9px;padding:10px 17px;border:1px solid var(--ink-blue);border-radius:0;background:transparent;color:var(--ink-blue);font-family:var(--display);font-size:15px;font-weight:400;cursor:pointer;transition:color 180ms ease,border-color 180ms ease,background-color 180ms ease,transform 180ms cubic-bezier(.16,1,.3,1)}.ds-button-cancel svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.ds-button-cancel:hover{background:rgba(30,101,148,.08)}.ds-button-cancel:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}.ds-button-cancel:active{transform:translateY(1px)}"
+    },
+    {
+      "name": "Icon Button",
+      "kind": "button",
+      "refersTo": "button-icon",
+      "description": "A square paper tile for settings or closing a dialog.",
+      "html": "<button class='ds-button-icon' type='button' aria-label='设置'><svg viewBox='0 0 24 24' aria-hidden='true'><circle cx='12' cy='12' r='3'/><path d='M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 3.1-.2-.1a1.7 1.7 0 0 0-1.8-.1 1.7 1.7 0 0 0-.9 1.5v.2h-3.6v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.1l-.2.1-1.8-3.1.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-.9h-.2v-3.6h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.2 1.8-3.1.2.1a1.7 1.7 0 0 0 1.8.1 1.7 1.7 0 0 0 .9-1.5v-.2h3.6v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.1l.2-.1 1.8 3.1-.1.2a1.7 1.7 0 0 0-.3 1.8 1.7 1.7 0 0 0 1.5 1h.2v3.6h-.2a1.7 1.7 0 0 0-1.5.9Z'/></svg></button>",
+      "css": ".ds-button-icon{display:inline-grid;width:34px;height:34px;place-items:center;padding:0;border:1px solid var(--rule);border-radius:0;background:rgba(248,245,236,.78);color:var(--ink);cursor:pointer;transition:border-color 180ms ease,background-color 180ms ease}.ds-button-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.ds-button-icon:hover{border-color:var(--ink-blue);background:#fffdf7}.ds-button-icon:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}"
+    },
+    {
+      "name": "Quiet Text Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "An inline list or settings action that stays visually light.",
+      "html": "<button class='ds-button-quiet' type='button'>清空列表</button>",
+      "css": ".ds-button-quiet{padding:4px 0;border:0;border-radius:0;background:transparent;color:var(--ink-blue);font-family:var(--ui);font-size:11px;cursor:pointer}.ds-button-quiet:hover{color:var(--ink-blue);text-decoration:underline;text-underline-offset:3px}.ds-button-quiet:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}.ds-button-quiet:disabled{color:#8d999e;text-decoration:none;cursor:not-allowed}"
+    },
+    {
+      "name": "Subtitle Selector",
+      "kind": "input",
+      "refersTo": "input-subtitle",
+      "description": "A native selector for choosing a subtitle file for a video.",
+      "html": "<select class='ds-input-subtitle' aria-label='选择字幕'><option>示例电影_02.srt · 字幕</option><option>其他字幕.srt</option></select>",
+      "css": ".ds-input-subtitle{width:100%;min-width:0;min-height:32px;padding:5px 7px;border:1px solid var(--rule);border-radius:0;background-color:rgba(248,245,236,.88);color:var(--ink);font-family:var(--ui);font-size:11px;cursor:pointer}.ds-input-subtitle:hover:not(:disabled){border-color:var(--ink-blue)}.ds-input-subtitle:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}.ds-input-subtitle:disabled{color:#72808a;cursor:not-allowed}"
+    },
+    {
+      "name": "Command Field",
+      "kind": "input",
+      "refersTo": "input-command",
+      "description": "Edits the local ffs executable command in settings.",
+      "html": "<label class='ds-command-field'><span>ffs 可执行命令</span><input type='text' value='ffs' spellcheck='false' autocomplete='off'/></label>",
+      "css": ".ds-command-field{display:grid;gap:8px;color:var(--ink);font-family:var(--ui);font-size:11px;font-weight:600}.ds-command-field input{width:100%;min-width:0;height:36px;padding:8px 10px;border:1px solid var(--rule);border-radius:0;background:var(--paper-light);color:var(--ink);font-family:var(--ui);font-size:11px;font-weight:400}.ds-command-field input:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}"
+    },
+    {
+      "name": "File Drop Lane",
+      "kind": "custom",
+      "refersTo": "drop-zone",
+      "description": "A labeled source lane for dropping or browsing video and subtitle files.",
+      "html": "<section class='ds-drop-zone'><div class='ds-drop-copy'><strong>视频轨</strong><span>支持 MP4 · MKV · AVI · MOV</span></div><button class='ds-drop-button' type='button'><svg viewBox='0 0 24 24' aria-hidden='true'><path d='M12 5v14M5 12h14'/></svg><span>添加视频</span></button><span class='ds-zone-count'>03</span></section>",
+      "css": ".ds-drop-zone{position:relative;display:flex;min-width:0;min-height:91px;align-items:center;gap:16px;padding:17px 18px 16px 21px;border-bottom:1px dashed var(--rule);border-radius:0;color:var(--ink);font-family:var(--ui)}.ds-drop-zone.ds-drag-over{border-bottom-color:var(--ink-blue);background:rgba(30,101,148,.09)}.ds-drop-copy{display:grid;min-width:0;gap:5px;margin-right:auto}.ds-drop-copy strong{color:var(--ink);font-family:var(--display);font-size:17px;font-weight:400}.ds-drop-copy span{overflow:hidden;color:var(--ink-soft);font-size:11px;text-overflow:ellipsis;white-space:nowrap}.ds-drop-button{display:inline-flex;min-height:34px;align-items:center;justify-content:center;gap:7px;padding:7px 11px;border:1px solid var(--ink-blue);border-radius:0;background:transparent;color:var(--ink-blue);font-family:var(--ui);font-size:11px;white-space:nowrap;cursor:pointer;transition:color 180ms ease,background-color 180ms ease,transform 180ms cubic-bezier(.16,1,.3,1)}.ds-drop-button svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.ds-drop-button:hover{background:var(--ink-blue);color:#fff}.ds-drop-button:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}.ds-drop-button:active{transform:translateY(1px)}.ds-zone-count{align-self:start;margin-left:-7px;color:#84929a;font-family:var(--hand);font-size:14px}@media(max-width:820px){.ds-drop-zone{min-height:75px;padding:12px 10px}}@media(max-width:480px){.ds-drop-zone{gap:7px}.ds-drop-button{min-height:31px;padding:6px 7px}}"
+    },
+    {
+      "name": "Numbered Pair Row",
+      "kind": "custom",
+      "refersTo": "pair-row",
+      "description": "Keeps one video, its subtitle choice, and its match state connected by a numbered track rail.",
+      "html": "<div class='ds-pair-row ds-matched'><div class='ds-file ds-video'><svg viewBox='0 0 24 24' aria-hidden='true'><rect x='3.5' y='5' width='17' height='14' rx='1.2'/><path d='m8 5 2 3m5-3 2 3M8 16l2 3m5-3 2 3M9 12h.01'/></svg><span><strong>示例电影_02.mkv</strong><small>电影</small></span></div><div class='ds-pair-mark'><span class='ds-track-number'>01</span><span class='ds-connection-line'></span><span class='ds-pair-word'>同名</span></div><div class='ds-file ds-subtitle'><svg viewBox='0 0 24 24' aria-hidden='true'><rect x='3.5' y='4.5' width='17' height='15' rx='1.2'/><path d='M7 9h10M7 12h10M7 15h6'/></svg><select aria-label='选择字幕'><option>示例电影_02.srt · 字幕</option></select></div><span class='ds-row-status'>自动配对</span></div>",
+      "css": ".ds-pair-row{display:grid;grid-template-columns:minmax(0,1fr) 88px minmax(0,1fr) minmax(128px,.34fr);min-height:90px;align-items:stretch;border-bottom:1px solid var(--rule-soft);border-radius:0;color:var(--ink);font-family:var(--ui);transition:background-color 180ms ease}.ds-pair-row:hover{background:rgba(255,255,255,.3)}.ds-pair-row.ds-running{background:rgba(30,101,148,.055)}.ds-file{display:flex;min-width:0;align-items:center;gap:11px;padding:15px 16px}.ds-file>svg{width:22px;height:22px;flex:0 0 22px;fill:none;stroke:var(--ink-blue);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.ds-file span{display:grid;min-width:0;gap:5px}.ds-file strong{overflow:hidden;color:var(--ink);font-size:12px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}.ds-file small{overflow:hidden;color:var(--ink-soft);font-size:11px;text-overflow:ellipsis;white-space:nowrap}.ds-pair-mark{display:grid;grid-template-rows:28px 8px 18px;justify-items:center;align-content:center;padding:5px 0 4px;border-right:1px solid rgba(32,52,72,.12);border-left:1px solid rgba(32,52,72,.12);color:var(--ink-blue)}.ds-track-number{display:inline-grid;width:27px;height:27px;place-items:center;border:1px solid var(--rule);background:var(--paper-light);color:var(--ink);font-family:var(--hand);font-size:12px}.ds-connection-line{width:30px;height:1px;background:#a9b8ba;transition:background-color 280ms ease}.ds-matched .ds-connection-line{width:51px;background:var(--ink-blue)}.ds-failed .ds-connection-line{background:var(--signal)}.ds-failed .ds-pair-word{color:var(--signal)}.ds-pair-word{color:var(--ink-soft);font-family:var(--hand);font-size:11px}.ds-subtitle select{width:100%;min-width:0;min-height:32px;padding:5px 7px;border:1px solid var(--rule);border-radius:0;background:rgba(248,245,236,.88);color:var(--ink);font-family:var(--ui);font-size:11px}.ds-subtitle select:hover{border-color:var(--ink-blue)}.ds-subtitle select:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}.ds-row-status{display:flex;align-items:center;padding:10px 12px 10px 14px;color:var(--success);font-size:11px}.ds-failed .ds-row-status{color:var(--signal)}@media(max-width:820px){.ds-pair-row{grid-template-columns:34px minmax(0,1fr);gap:0;padding:7px 0}.ds-pair-mark{grid-column:1;grid-row:1/span 2;grid-template-rows:26px 1fr 18px;min-height:112px;border:0}.ds-track-number{width:26px;height:26px}.ds-connection-line,.ds-matched .ds-connection-line{width:1px;height:100%;min-height:23px}.ds-pair-word{align-self:end}.ds-video,.ds-subtitle,.ds-row-status{grid-column:2}.ds-video{min-height:62px}.ds-subtitle{min-height:62px;padding-top:5px;border-top:1px dashed var(--rule-soft)}.ds-row-status{min-height:30px;padding:2px 6px 5px}}"
+    },
+    {
+      "name": "Local Tool State",
+      "kind": "button",
+      "refersTo": "tool-state",
+      "description": "Shows the current health of the local FFSubSync, FFmpeg, and FFprobe tools.",
+      "html": "<button class='ds-tool-state ds-healthy' type='button'><span class='ds-tool-dot'></span><span>本机工具已就绪</span></button>",
+      "css": ".ds-tool-state{display:inline-flex;align-items:center;gap:8px;min-height:30px;padding:4px 10px;border:1px solid transparent;border-radius:0;background:transparent;color:var(--ink);font-family:var(--ui);font-size:11px;letter-spacing:.02em;cursor:pointer;transition:color 180ms ease,border-color 180ms ease,background-color 180ms ease}.ds-tool-state:hover{border-color:var(--rule);background:rgba(255,255,255,.42)}.ds-tool-state:focus-visible{outline:2px solid var(--ink-blue);outline-offset:3px}.ds-tool-dot{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#9a8b70}.ds-healthy .ds-tool-dot{background:var(--success)}.ds-missing .ds-tool-dot,.ds-attention .ds-tool-dot{background:var(--signal)}.ds-checking .ds-tool-dot{background:var(--ink-blue);animation:ds-pencil-pulse 1.4s ease-in-out infinite}@keyframes ds-pencil-pulse{50%{opacity:.45;transform:scale(.86)}}@media(prefers-reduced-motion:reduce){.ds-tool-state,.ds-tool-dot{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "蓝墨 J-card · 磁带内页",
+    "overview": "Treat the workbench as a printed cassette inlay: warm paper, a deep navy spine, fine ruling, and short hand-marked track numbers. Ballpoint blue makes controls and confirmed pairings easy to find. The result stays calm and legible while showing enough rows for batch work; the printed metaphor supports file pairing rather than obscuring it.\n\nDepth comes from the paper tones, ruled folds, and restrained shadows around the app shell, settings dialog, and transient notices. A faint fiber-and-ink texture sits over the inlay stock. `assets/jcard-stock-overlay.png` is a transparent seamless raster generated with OpenAI ImageGen on 2026-10-25; its prompt and provenance are recorded in `assets/README.md`.",
+    "keyCharacteristics": [
+      "Warm, ruled paper as the work surface, with a dark J-card spine.",
+      "Navy text and ballpoint-blue controls keep file names, pair marks, and focus states distinct.",
+      "Square, hairline geometry carries the structure; handwriting is reserved for short annotations and indices.",
+      "Status is explicit in text and marks, with red for attention and green for healthy or completed work."
+    ],
+    "rules": [
+      { "name": "The State Ink Rule", "body": "Blue means interaction or an active pairing; green means healthy or complete; red means mismatch, failure, missing tools, or another attention state. Keep routine hover feedback blue and keep the written state visible alongside its color.", "section": "colors" },
+      { "name": "The Handwritten Margin Rule", "body": "Use handwritten type as a small annotation layer; keep operational instructions and file names in the UI sans.", "section": "typography" },
+      { "name": "The Pressed Paper Rule", "body": "Keep ordinary rows and controls flat. Use shadow only to separate the app frame, modal, fixed run bar, or transient notice.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use the paper, navy, and ballpoint-blue roles from the frontmatter rather than introducing a new brand accent.",
+      "Do keep each video/subtitle relationship explicit through a numbered center rail and a visible state label.",
+      "Do pair status color with text or a shape so meaning remains clear without color alone.",
+      "Do keep the fiber overlay subtle enough that file names, paths, and controls remain easy to read.",
+      "Do preserve square controls and ruled dividers when adding related desktop surfaces.",
+      "Do honor reduced-motion preferences; the interface already reduces transitions and status animations when requested."
+    ],
+    "donts": [
+      "Don't turn ruled rows, fields, or buttons into rounded cards.",
+      "Don't use failure red on routine interaction hovers, default action fills, or as decoration; reserve it for mismatch, failure, missing-tool, and other attention states.",
+      "Don't replace the center pairing mark with color alone or remove its numbered sequence.",
+      "Don't spread handwritten type across paragraphs or long operational instructions.",
+      "Don't increase paper texture contrast until it competes with text or fine rules."
+    ]
+  }
+}
